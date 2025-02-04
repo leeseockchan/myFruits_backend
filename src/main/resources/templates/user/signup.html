@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>회원가입</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a th:href="@{/}">홈</a></li>
+        <li sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">로그인</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()">
+            <a th:href="@{/signup}">회원가입</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/users}">사용자 관리</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">로그아웃</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<h2>회원가입</h2>
+
+<form th:action="@{/signup}" method="post">
+    <div>
+        <label for="username">사용자명:</label>
+        <input type="text" name="username" required id="username"/>
+    </div>
+    <div>
+        <label for="password">비밀번호:</label>
+        <input type="password" name="password" required id="password"/>
+    </div>
+    <button type="submit">가입하기</button>
+</form>
+
+<a th:href="@{/login}">로그인</a>
+</body>
+</html>
