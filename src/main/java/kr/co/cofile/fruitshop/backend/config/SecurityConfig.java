@@ -1,4 +1,4 @@
-package kr.co.cofile.fruitshop.backend.fruit_shop_backend.config;
+package kr.co.cofile.fruitshop.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+@Slf4j  // 콘솔 창 error 메세지를 띄워준다.
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -21,12 +21,12 @@ public class SecurityConfig {
 
         http
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
+                        .loginPage("/auth/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/signup").permitAll()
+                        .requestMatchers("/", "/home", "/auth/signup").permitAll()
                         .requestMatchers("/users", "/user/*/roles", "/user/*/role/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

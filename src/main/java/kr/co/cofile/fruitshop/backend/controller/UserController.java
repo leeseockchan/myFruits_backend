@@ -1,10 +1,8 @@
-package kr.co.cofile.fruitshop.backend.fruit_shop_backend.controller;
+package kr.co.cofile.fruitshop.backend.controller;
 
 
-import kr.co.cofile.fruitshop.backend.fruit_shop_backend.dto.UserDTO;
-import kr.co.cofile.fruitshop.backend.fruit_shop_backend.service.UserService;
+import kr.co.cofile.fruitshop.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserService userService;
-
+    private final UserService userService;
+//    회원가입
     @GetMapping("/signup")
     public String singup() {
         return "signup";
@@ -27,9 +22,7 @@ public class UserController {
     @PostMapping("/signup")
     public String signup(@RequestParam("username") String username,
                          @RequestParam("password") String password) {
-
         userService.signup(username, password);
-
         return "redirect:/login";
     }
 }

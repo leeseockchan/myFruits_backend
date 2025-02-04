@@ -1,4 +1,4 @@
-package kr.co.cofile.fruitshop.backend.fruit_shop_backend.dto;
+package kr.co.cofile.fruitshop.backend.dto;
 
 import lombok.Data;
 
