@@ -14,15 +14,22 @@ public class UserController {
 
     private final UserService userService;
 //    회원가입
-    @GetMapping("/signup")
+    @GetMapping("/auth/signup")
     public String singup() {
-        return "signup";
+        return "/user/signup";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public String signup(@RequestParam("username") String username,
                          @RequestParam("password") String password) {
         userService.signup(username, password);
         return "redirect:/login";
     }
+    
+//    로그인
+    @GetMapping("/auth/login")
+    public String login() {
+        return "/user/login";
+    }
+    
 }

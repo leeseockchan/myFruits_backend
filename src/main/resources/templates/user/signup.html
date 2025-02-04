@@ -9,16 +9,16 @@
     <ul>
         <li><a th:href="@{/}">홈</a></li>
         <li sec:authorize="!isAuthenticated()">
-            <a th:href="@{/login}">로그인</a>
+            <a th:href="@{/auth/login}">로그인</a>
         </li>
         <li sec:authorize="!isAuthenticated()">
-            <a th:href="@{/signup}">회원가입</a>
+            <a th:href="@{/auth/signup}">회원가입</a>
         </li>
         <li sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/users}">사용자 관리</a>
+            <a th:href="@{/auth/users}">사용자 관리</a>
         </li>
         <li sec:authorize="isAuthenticated()">
-            <form th:action="@{/logout}" method="post">
+            <form th:action="@{/auth/logout}" method="post">
                 <button type="submit">로그아웃</button>
             </form>
         </li>

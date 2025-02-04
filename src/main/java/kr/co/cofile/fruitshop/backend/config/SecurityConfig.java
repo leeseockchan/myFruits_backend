@@ -27,7 +27,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/home", "/auth/signup").permitAll()
-                        .requestMatchers("/users", "/user/*/roles", "/user/*/role/**").hasRole("ADMIN")
+                        .requestMatchers("/admin","/admin/users", "/admin/user/*/roles", "/admin/user/*/role/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
