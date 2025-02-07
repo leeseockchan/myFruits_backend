@@ -3,6 +3,6 @@
 <mapper namespace="kr.co.cofile.fruitshop.backend.mapper.UserMapper">
     <insert id="save" parameterType="kr.co.cofile.fruitshop.backend.dto.UserDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO users (username, password, enabled)
-        VALUES (#{username}, #{password}, #{enabled});
+        VALUES (#{username}, #{password}, #{enabled})
     </insert>
 </mapper>

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,18 +21,21 @@ public class SecurityConfig {
         log.info("security config ...");
 
         http
+                .csrf(AbstractHttpConfigurer::disable) // API 서버역할을 위해
                 .formLogin(formLogin -> formLogin
                         .loginPage("/auth/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/admin/dashboard", true)
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/auth/signup").permitAll()
-                        .requestMatchers("/admin","/admin/users", "/admin/user/*/roles", "/admin/user/*/role/**").hasRole("ADMIN")
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/admin/login").permitAll()
+                        .requestMatchers("/admin/user/{id}").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/admin")
                         .permitAll()
                 );
 
